@@ -88,6 +88,7 @@ spec:
 ```bash
 kubectl apply -f service.yaml
 ```
+![image](https://github.com/user-attachments/assets/f2674105-6b52-4ce3-82cc-0ce8b589d0bd)
 
 ### 4. Создание отдельного Pod с multitool и проверка доступа
 
