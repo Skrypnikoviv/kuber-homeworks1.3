@@ -52,12 +52,14 @@ replicas: 2
 ```bash
 kubectl apply -f deployment.yaml
 ```
+![image](https://github.com/user-attachments/assets/5c080af4-4c1b-4523-906a-cf64f7ddcb4a)
 
 Проверено количество подов до и после масштабирования:
 
 ```bash
 kubectl get pods
 ```
+![image](https://github.com/user-attachments/assets/9112451b-e468-474c-9726-eb97d4c4297a)
 
 **Результат:**
 - До масштабирования: 1 под.
