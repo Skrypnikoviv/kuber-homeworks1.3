@@ -28,6 +28,7 @@ spec:
         - containerPort: 80
       - name: multitool
         image: wbitt/network-multitool:latest
+        command: ["sleep", "infinity"]
         ports:
         - containerPort: 8080
 ```
@@ -161,6 +162,7 @@ spec:
 ```bash
 kubectl apply -f init-deployment.yaml
 ```
+![image](https://github.com/user-attachments/assets/5d5ca959-4dde-4c99-8309-4a30d4fba475)
 
 ### 2. Создание и запуск Service
 
@@ -196,6 +198,8 @@ kubectl get pods
 
 **Результат:**
 - Пода находился в состоянии `Init:0/1`, так как сервис ещё не был создан.
+- 
+![image](https://github.com/user-attachments/assets/eabd8ea7-bd25-4dee-ae81-48239463ecc2)
 
 После запуска сервиса проверено состояние пода:
 
