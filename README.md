@@ -135,26 +135,26 @@ kubectl exec -it multitool-pod -- curl http://nginx-multitool-service
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-init-deployment
+  name: nginx-init-deploy
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: nginx-init
+  replicas: 1
   template:
     metadata:
       labels:
         app: nginx-init
     spec:
-      initContainers:
-      - name: init-busybox
-        image: busybox:latest
-        command: ['sh', '-c', 'until nslookup nginx-init-service; do echo waiting for service; sleep 2; done;']
       containers:
       - name: nginx
-        image: nginx:latest
+        image: nginx:1.25.4
         ports:
         - containerPort: 80
+      initContainers:
+      - name: delay
+        image: busybox
+        command: ['sh', '-c', "until nslookup nginx-init-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for nginx-init-svc; sleep 2; done"]
 ```
 
 Применён манифест:
@@ -172,14 +172,13 @@ kubectl apply -f init-deployment.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-init-service
+  name: nginx-init-svc
 spec:
+  ports:
+    - name: nginx-init
+      port: 80
   selector:
     app: nginx-init
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
 ```
 
 Применён манифест:
@@ -206,6 +205,7 @@ kubectl get pods
 ```bash
 kubectl get pods
 ```
+![image](https://github.com/user-attachments/assets/dadab5ea-d04e-430a-84f8-1783f79313d3)
 
 **Результат:**
 - Init-контейнер завершился успешно, и основной контейнер `nginx` запустился.
@@ -218,4 +218,3 @@ kubectl get pods
 1. Успешно создан Deployment с двумя контейнерами (nginx и multitool), масштабирован до 2 реплик и обеспечен доступ к репликам через Service.
 2. Создан Deployment с Init-контейнером, который обеспечивает запуск основного контейнера только после старта сервиса.
 
-Все шаги выполнены в соответствии с требованиями задания.
