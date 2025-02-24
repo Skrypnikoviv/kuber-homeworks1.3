@@ -110,12 +110,14 @@ spec:
 ```bash
 kubectl apply -f multitool-pod.yaml
 ```
+![image](https://github.com/user-attachments/assets/95e46218-f3cb-4e2f-b0bf-936a52495389)
 
 Проверен доступ к сервису из пода:
 
 ```bash
 kubectl exec -it multitool-pod -- curl http://nginx-multitool-service
 ```
+![image](https://github.com/user-attachments/assets/b7b34373-9fd2-4852-8367-bc1bf49a34a6)
 
 **Результат:**
 - Успешный доступ к сервису `nginx-multitool-service` из пода `multitool-pod`.
