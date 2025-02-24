@@ -37,6 +37,7 @@ spec:
 ```bash
 kubectl apply -f deployment.yaml
 ```
+![image](https://github.com/user-attachments/assets/c2ac6711-bb53-47a0-aa8b-cfb8274eb286)
 
 ### 2. Увеличение количества реплик до 2
 
